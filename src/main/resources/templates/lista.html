@@ -46,14 +46,30 @@
 		    <span aria-hidden="true">&times;</span>
 		  </button>
 		</div>
-				
-		<form action="#" th:action="@{/participante/cadastra}" th:object="${participante}" method="post">
-			<div class="form-group">
-				<label for="email">Email address</label>
-				<input id="email" class="form-control" type="text" th:field="*{email}"/>
-			</div>
-			<button type="submit" class="btn btn-primary">Cadastrar email</button>
-		</form>
+		
+		<div class="text-center">
+			<form action="#" th:action="@{/sorteio/sorteia}" method="post">
+				<button type="submit" class="btn btn-primary">Sortear</button>
+			</form>
+			<form action="#" th:action="@{/sorteio/validaEmails}" method="post">
+				<button type="submit" class="btn btn-primary">Validar Emails</button>
+			</form>
+		</div>
+		
+		<table class="table table-striped">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Email</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="participante,iterationStatus : ${participantes}">
+		      <th th:text="${iterationStatus.count}" scope="row"></th>
+		      <td th:text="${participante.email}"></td>
+		    </tr>
+		  </tbody>
+		</table>
 		
 	</div>
 	
