@@ -3,15 +3,20 @@
 <head>
 <meta charset="UTF-8"/>
 
-<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<script type="text/javascript" src="webjars/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 <title>Amigo Oculto</title>
 </head>
 <body>
 
-	<div class="container">
+	<div class="container-fluid">
 	
-		<span class="jumbotron" th:text="${ mensagem }" ></span>
+		<div class="jumbotron text-center">
+			<h2 th:text="${ mensagem }"></h2>
+		</div>
 		
 		<form action="#" th:action="@{/seedstartermng}" th:object="${seedStarter}" method="post">
 		
@@ -21,9 +26,5 @@
 		
 	</div>
 	
-	<script type="text/javascript" src="webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="webjars/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-
 </body>
 </html>
