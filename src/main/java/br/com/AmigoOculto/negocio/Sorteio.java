@@ -39,4 +39,12 @@ public class Sorteio {
 		
 	}
 
+	public void validaEmails(List<Participante> participantes) {
+		
+		for (Participante participante : participantes) {
+			System.out.println("Enviando email pra: "+participante.getEmail());
+		}
+		
+	}
+
 }

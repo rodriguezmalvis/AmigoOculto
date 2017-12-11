@@ -47,15 +47,19 @@
 		  </button>
 		</div>
 		
-		<div class="text-center">
-			<form action="#" th:action="@{/sorteio/sorteia}" method="post">
+		<div class="row">
+			<div class="col text-center">
+			  <form action="#" th:action="@{/sorteio/sorteia}" method="post">
 				<button type="submit" class="btn btn-primary">Sortear</button>
-			</form>
-			<form action="#" th:action="@{/sorteio/validaEmails}" method="post">
+			  </form>
+			</div>
+			<div class="col text-center">
+			  <form action="#" th:action="@{/sorteio/valida}" method="post">
 				<button type="submit" class="btn btn-primary">Validar Emails</button>
-			</form>
+			  </form>
+			</div>
 		</div>
-		
+		<br/>
 		<table class="table table-striped">
 		  <thead>
 		    <tr>

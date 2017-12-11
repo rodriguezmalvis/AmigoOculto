@@ -22,6 +22,19 @@ public class SorteioController {
 	@Autowired
 	ParticipanteDao dao;
 	
+	@PostMapping("valida")
+	public ModelAndView validaEmails(RedirectAttributes redirectAttributes) {
+		
+		ModelAndView view = new ModelAndView("redirect:lista");
+		
+		new Sorteio().validaEmails(dao.findAll());
+		
+		redirectAttributes.addFlashAttribute("mensagem","Emails enviados para verificação dos participantes");
+		
+		return view;
+		
+	}
+	
 	@PostMapping("sorteia")
 	public ModelAndView sorteia(RedirectAttributes redirectAttributes) {
 		
