@@ -1,4 +1,4 @@
-package br.com.AmigoOculto.controllers;
+package br.com.amigo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.AmigoOculto.daos.ParticipanteDao;
-import br.com.AmigoOculto.negocio.Sorteio;
+import br.com.amigo.daos.ParticipanteDao;
+import br.com.amigo.negocio.Sorteio;
 
 @Controller
 @RequestMapping("sorteio")
@@ -22,12 +22,15 @@ public class SorteioController {
 	@Autowired
 	ParticipanteDao dao;
 	
+	@Autowired
+	Sorteio sorteio;
+	
 	@PostMapping("valida")
 	public ModelAndView validaEmails(RedirectAttributes redirectAttributes) {
 		
 		ModelAndView view = new ModelAndView("redirect:lista");
 		
-		new Sorteio().validaEmails(dao.findAll());
+		sorteio.validaEmails(dao.findAll());
 		
 		redirectAttributes.addFlashAttribute("mensagem","Emails enviados para verificação dos participantes");
 		
@@ -40,7 +43,7 @@ public class SorteioController {
 		
 		ModelAndView view = new ModelAndView("redirect:lista");
 		
-		new Sorteio().sorteia(dao.findAll());
+		sorteio.sorteia(dao.findAll());
 		
 		redirectAttributes.addFlashAttribute("mensagem","Sorteio realizado com sucesso");
 		

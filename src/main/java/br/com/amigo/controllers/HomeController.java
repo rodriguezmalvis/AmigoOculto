@@ -1,11 +1,11 @@
-package br.com.AmigoOculto.controllers;
+package br.com.amigo.controllers;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.AmigoOculto.models.Participante;
+import br.com.amigo.models.Participante;
 
 @Controller
 public class HomeController {

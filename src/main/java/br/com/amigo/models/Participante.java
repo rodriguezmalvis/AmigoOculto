@@ -1,4 +1,4 @@
-package br.com.AmigoOculto.models;
+package br.com.amigo.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

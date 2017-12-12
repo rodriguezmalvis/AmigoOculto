@@ -1,4 +1,4 @@
-package br.com.AmigoOculto;
+package br.com.amigo;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
