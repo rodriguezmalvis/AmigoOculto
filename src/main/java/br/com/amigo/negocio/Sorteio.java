@@ -50,7 +50,12 @@ public class Sorteio {
 		
 		for (Participante participante : participantes) {
 			System.out.println("Enviando email pra: "+participante.getEmail());
-			mailSender.sendMail("rodriguezmalvis@gmail.com", participante.getEmail(), "Amigo oculto 2017", "Teste email");
+			mailSender.sendMailWithJavaMail(
+					"meuamigaosecreto@hotmail.com", 
+					participante.getEmail(), 
+					"Amigo oculto 2017", 
+					"Olá "+participante.getEmail()+", esta é uma mensagem automática do sorteio do amigo oculto. Por favor, "
+							+ "confirme o recebimento deste email respondendo este email ou no grupo da Family no Zap! Feliz Natal!!!");
 		}
 		
 	}
