@@ -45,7 +45,7 @@ public class Sorteio {
 					"meuamigaosecreto@hotmail.com", 
 					participante.getEmail(), 
 					"Amigo oculto 2017", 
-					"Olá "+participante.getNome()+", você tirou "+ resultado.get(participante).getNome() +". Apenas lembrar"
+					"Olá "+participante.getNome()+", você tirou "+ resultado.get(participante).getNome() +". Apenas lembrar "
 							+ "que o valor do presente é até R$ 50. Feliz Natal!!!");
 			
 		}

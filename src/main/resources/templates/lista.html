@@ -1,53 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="template">
+<head th:replace="template :: head">
 <meta charset="UTF-8"/>
-
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
-<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-
-<title>Amigo Oculto</title>
 </head>
 <body>
-
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	  <a class="navbar-brand" th:href="@{/home}">AmigoOculto</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	  <div class="collapse navbar-collapse" id="navbarNav">
-	    <ul class="navbar-nav">
-	      <li class="nav-item">
-	        <a class="nav-link" th:href="@{/home}">Cadastrar Participante</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" th:href="@{/sorteio/lista}">Participantes</a>
-	      </li>
-	    </ul>
-	    <ul class="navbar-nav ml-auto">
-	    	<li>
-	    		<a class="nav-link" href="#"></a>
-	    	</li>
-	    </ul>
-	  </div>
-	</nav>
-
-	<div class="container-fluid">
-	
-		<div class="jumbotron text-center">
-			<h2 th:text="${ welcome }"></h2>
-		</div>
-		
-		<div th:if="${mensagem}" class="alert alert-success alert-dismissible fade show" role="alert">
-		  <strong>Sucesso!</strong> <span th:text="${ mensagem }"></span>
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		    <span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		
+	<div layout:fragment="corpo">
 		<div class="row">
 			<div class="col text-center">
 			  <form action="#" th:action="@{/sorteio/sorteia}" method="post">
@@ -77,8 +36,6 @@
 		    </tr>
 		  </tbody>
 		</table>
-		
 	</div>
-	
 </body>
 </html>
