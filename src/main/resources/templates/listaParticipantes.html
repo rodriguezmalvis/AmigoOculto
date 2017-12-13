@@ -8,13 +8,15 @@ layout:decorator="template">
 <body>
 	<div layout:fragment="corpo">
 		<div class="row">
-			<div class="col text-center">
-			  <form action="#" th:action="@{/sorteio/sorteia}" method="post">
+			<div class="col text-right">
+			  <form th:action="@{/sorteio/sorteia}" method="post">
 				<button type="submit" class="btn btn-primary">Sortear</button>
+				<input class="form-control" type="hidden" name="idSorteio" th:value="${sorteio.id}"/>
 			  </form>
 			</div>
-			<div class="col text-center">
+			<div class="col text-left">
 			  <form action="#" th:action="@{/sorteio/valida}" method="post">
+			  	<input class="form-control" type="hidden" name="idSorteio" th:value="${sorteio.id}"/>
 				<button type="submit" class="btn btn-primary">Validar Emails</button>
 			  </form>
 			</div>
@@ -30,19 +32,19 @@ layout:decorator="template">
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr th:each="participante,iterationStatus : ${participantes}">
+		    <tr th:each="participante,iterationStatus : ${sorteio.participantes}">
 		      <th th:text="${iterationStatus.count}" scope="row"></th>
 		      <td th:text="${participante.email}"></td>
 		      <td th:text="${participante.nome}"></td>
 		      <td>
 		      	<div class="row">
-					<div class="col text-center">
+					<div class="col text-right">
 					  <form th:action="@{/participante/editar}" method="post">
 					  	<input class="form-control" type="hidden" name="email" th:value="${participante.email}"/>
 						<button type="submit" class="btn btn-primary">Editar</button>
 					  </form>
 					</div>
-					<div class="col text-center">
+					<div class="col text-left">
 					  <form th:action="@{/participante/remover}" method="post">
 					  	<input class="form-control" type="hidden" name="email" th:value="${participante.email}"/>
 						<button type="submit" class="btn btn-primary">Remover</button>

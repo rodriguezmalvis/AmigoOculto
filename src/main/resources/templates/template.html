@@ -52,6 +52,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 		  </button>
 		</div>
 		
+		<div th:if="${alerta}" class="alert alert-danger alert-dismissible fade show" role="alert">
+		  <strong>Alerta!</strong> <span th:text="${ alerta }"></span>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		
 		<section layout:fragment="corpo">
 			<p>Text Template</p>
 		</section>

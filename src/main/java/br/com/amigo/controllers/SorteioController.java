@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.amigo.daos.ParticipanteDao;
 import br.com.amigo.daos.SorteioDao;
+import br.com.amigo.models.Participante;
 import br.com.amigo.models.Sorteio;
 import br.com.amigo.negocio.Sorteiador;
 
@@ -60,9 +61,9 @@ public class SorteioController {
 	}
 	
 	@PostMapping("valida")
-	public ModelAndView validaEmails(RedirectAttributes redirectAttributes) {
+	public ModelAndView validaEmails(Integer idSorteio,RedirectAttributes redirectAttributes) throws Exception {
 		
-		ModelAndView view = new ModelAndView("redirect:lista");
+		ModelAndView view = new ModelAndView("redirect:participantes/"+idSorteio);
 		
 		sorteiador.validaEmails(participanteDao.findAll());
 		
@@ -73,13 +74,24 @@ public class SorteioController {
 	}
 	
 	@PostMapping("sorteia")
-	public ModelAndView sorteia(RedirectAttributes redirectAttributes) {
+	public ModelAndView sorteia(Integer idSorteio, RedirectAttributes redirectAttributes) {
 		
-		ModelAndView view = new ModelAndView("redirect:lista");
+		ModelAndView view = new ModelAndView("redirect:participantes/"+idSorteio);
 		
-		sorteiador.sorteia(participanteDao.findAll());
+		Sorteio sorteio = sorteioDao.getOne(idSorteio);
 		
-		redirectAttributes.addFlashAttribute("mensagem","Sorteio realizado com sucesso");
+		Integer confirmados = (int) sorteio.getParticipantes().stream().filter(Participante::isEmailConfirmado).count();
+		
+		if(confirmados == sorteio.getNumeroParticipantes()) {
+			if(sorteio.getNumeroParticipantes() <= 3 ) {
+				redirectAttributes.addFlashAttribute("alerta","Numero minimo de participantes não atingido (Min 3)");
+			}else {
+				sorteiador.sorteia(sorteio.getParticipantes());
+				redirectAttributes.addFlashAttribute("mensagem","Sorteio realizado com sucesso");
+			}
+		}else {
+			redirectAttributes.addFlashAttribute("alerta","Existem participantes que não confirmaram o email");
+		}
 		
 		return view;
 		
@@ -100,8 +112,10 @@ public class SorteioController {
 	public ModelAndView lista(@PathVariable Integer idSorteio) {
 		
 		ModelAndView view = new ModelAndView("listaParticipantes");
+		
 		Sorteio sorteio = sorteioDao.findOne(idSorteio);
-		view.addObject("participantes", sorteio.getParticipantes());
+		
+		view.addObject("sorteio", sorteio);
 		view.addObject("welcome", welcome);
 		
 		return view;

@@ -1,6 +1,11 @@
 package br.com.amigo.negocio;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,13 +13,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.amigo.daos.TokenDao;
 import br.com.amigo.models.Participante;
+import br.com.amigo.models.TokenEmail;
+import javassist.expr.NewArray;
 
 @Component
 public class Sorteiador {
 	
 	@Autowired
 	Mailer mailSender;
+	
+	@Autowired
+	TokenDao tokenDao;
 	
 	public Map<Participante,Participante> sorteia( List<Participante> participantes ) {
 		
@@ -54,20 +65,38 @@ public class Sorteiador {
 		
 	}
 
-	public void validaEmails(List<Participante> participantes) {
+	public void validaEmails(List<Participante> participantes) throws Exception {
 		
 		for (Participante participante : participantes) {
+			
+			String MD5 = geraMD5(participante);
+			
+			String token = Calendar.getInstance().getTimeInMillis()+"O_o"+MD5+"o_O"+Calendar.getInstance().getTimeInMillis();
+			
+			TokenEmail tokenEmail = new TokenEmail();
+			tokenEmail.setToken(MD5);
+			tokenEmail.setParticipante(participante);
+			tokenEmail.setData(new Date());
+			
+			tokenDao.save(tokenEmail);
 			
 			System.out.println("Enviando email de confirmação pra: "+participante.getEmail());
 			
 			mailSender.sendMailWithJavaMail(
 					"meuamigaosecreto@hotmail.com", 
 					participante.getEmail(), 
-					"Amigo oculto 2017", 
-					"Olá "+participante.getNome()+", esta é uma mensagem automática do sorteio do amigo oculto. Por favor, "
-							+ "confirme o recebimento deste email respondendo este email ou no grupo da Family no Zap! Feliz Natal!!!");
+					participante.getSorteio().getNome(), 
+					"Olá "+participante.getNome()+", esta é uma mensagem automática do sorteio "+ participante.getSorteio().getNome() +". Por favor, "
+							+ "clique neste link pra validar o seu email: http://localhost:8080/AmigoOculto/participante/validaEmail/"+ token +" Boa Sorte!!!");
 		}
 		
+	}
+
+	private String geraMD5(Participante participante) throws NoSuchAlgorithmException {
+		MessageDigest m = MessageDigest.getInstance("MD5");
+		m.update(participante.getEmail().getBytes(),0,participante.getEmail().length());
+		String hash = new BigInteger(1,m.digest()).toString(16);
+		return hash;
 	}
 
 }
