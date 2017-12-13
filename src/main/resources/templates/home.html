@@ -11,14 +11,15 @@ layout:decorator="template">
 		<form action="#" th:action="@{/participante/cadastra}" th:object="${participante}" method="post">
 			<div class="form-group">
 				<label for="email">Email</label>
-				<input id="email" class="form-control" type="text" th:field="*{email}"/>
+				<input id="email" class="form-control" type="text" th:field="*{email}" th:value="${participante.email}"/>
 			</div>
 			<div class="form-group">
 				<label for="nome">Nome</label>
-				<input id="nome" class="form-control" type="text" th:field="*{nome}"/>
+				<input id="nome" class="form-control" type="text" th:field="*{nome}" th:value="${participante.nome}"/>
 			</div>
 			<div class="form-group">
 				<select class="custom-select" th:field="*{sorteio.id}">
+				  <option th:if="${participante.sorteio.id}" th:value="${participante.sorteio.id}" th:text="${participante.sorteio.nome}"></option>
 				  <option th:each="sorteio,iterationStatus : ${sorteios}" th:value="${sorteio.id}" th:text="${sorteio.nome}"></option>
 				</select>
 			</div>

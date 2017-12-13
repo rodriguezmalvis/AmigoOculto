@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +29,7 @@ public class SorteioController {
 	SorteioDao sorteioDao;
 	
 	@Autowired
-	Sorteiador sorteio;
+	Sorteiador sorteiador;
 	
 	@GetMapping("form")
 	public ModelAndView formulario() {
@@ -36,6 +37,8 @@ public class SorteioController {
 		ModelAndView view = new ModelAndView("sorteioForm");
 		
 		view.addObject("sorteio", new Sorteio());
+		
+		view.addObject("welcome", welcome);
 		
 		return view;
 		
@@ -50,8 +53,6 @@ public class SorteioController {
 		
 		sorteioDao.save(sorteio);
 		
-		view.addObject("welcome", welcome);
-		
 		redirectAttributes.addFlashAttribute("mensagem","Sorteio cadastrado com sucesso");
 		
 		return view;
@@ -63,7 +64,7 @@ public class SorteioController {
 		
 		ModelAndView view = new ModelAndView("redirect:lista");
 		
-		sorteio.validaEmails(participanteDao.findAll());
+		sorteiador.validaEmails(participanteDao.findAll());
 		
 		redirectAttributes.addFlashAttribute("mensagem","Emails enviados para verificação dos participantes");
 		
@@ -76,7 +77,7 @@ public class SorteioController {
 		
 		ModelAndView view = new ModelAndView("redirect:lista");
 		
-		sorteio.sorteia(participanteDao.findAll());
+		sorteiador.sorteia(participanteDao.findAll());
 		
 		redirectAttributes.addFlashAttribute("mensagem","Sorteio realizado com sucesso");
 		
@@ -88,18 +89,19 @@ public class SorteioController {
 	public ModelAndView sorteios() {
 		
 		ModelAndView view = new ModelAndView("listaSorteios");
-		view.addObject("participantes", participanteDao.findAll());
+		view.addObject("sorteios", sorteioDao.findAll());
 		view.addObject("welcome", welcome);
 		
 		return view;
 		
 	}
 	
-	@GetMapping("lista")
-	public ModelAndView lista() {
+	@GetMapping("participantes/{idSorteio}")
+	public ModelAndView lista(@PathVariable Integer idSorteio) {
 		
-		ModelAndView view = new ModelAndView("lista");
-		view.addObject("participantes", participanteDao.findAll());
+		ModelAndView view = new ModelAndView("listaParticipantes");
+		Sorteio sorteio = sorteioDao.findOne(idSorteio);
+		view.addObject("participantes", sorteio.getParticipantes());
 		view.addObject("welcome", welcome);
 		
 		return view;

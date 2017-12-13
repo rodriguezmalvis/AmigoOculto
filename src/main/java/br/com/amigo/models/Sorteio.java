@@ -21,6 +21,10 @@ public class Sorteio {
 	@OneToMany(mappedBy="sorteio")
 	private List<Participante> participantes = new ArrayList<>();
 	
+	public Integer getNumeroParticipantes() {
+		return this.participantes.size();
+	}
+	
 	public Integer getId() {
 		return id;
 	}

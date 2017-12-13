@@ -7,32 +7,22 @@ layout:decorator="template">
 </head>
 <body>
 	<div layout:fragment="corpo">
-		<div class="row">
-			<div class="col text-center">
-			  <form action="#" th:action="@{/sorteio/sorteia}" method="post">
-				<button type="submit" class="btn btn-primary">Sortear</button>
-			  </form>
-			</div>
-			<div class="col text-center">
-			  <form action="#" th:action="@{/sorteio/valida}" method="post">
-				<button type="submit" class="btn btn-primary">Validar Emails</button>
-			  </form>
-			</div>
-		</div>
 		<br/>
 		<table class="table table-striped">
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
 		      <th scope="col">Email</th>
-		      <th scope="col">Nome</th>
+		      <th scope="col">Nº Participantes</th>
+		      <th scope="col"></th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr th:each="participante,iterationStatus : ${participantes}">
+		    <tr th:each="sorteio,iterationStatus : ${sorteios}">
 		      <th th:text="${iterationStatus.count}" scope="row"></th>
-		      <td th:text="${participante.email}"></td>
-		      <td th:text="${participante.nome}"></td>
+		      <td th:text="${sorteio.nome}"></td>
+		      <td th:text="${sorteio.numeroParticipantes}"></td>
+		      <td><a th:href="@{/sorteio/participantes/}+${sorteio.id}">participantes</a></td>
 		    </tr>
 		  </tbody>
 		</table>
