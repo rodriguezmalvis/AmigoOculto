@@ -28,6 +28,7 @@ layout:decorator="template">
 		      <th scope="col">#</th>
 		      <th scope="col">Email</th>
 		      <th scope="col">Nome</th>
+		      <th scope="col">Email Confirmado</th>
 		      <th scope="col"></th>
 		    </tr>
 		  </thead>
@@ -36,6 +37,7 @@ layout:decorator="template">
 		      <th th:text="${iterationStatus.count}" scope="row"></th>
 		      <td th:text="${participante.email}"></td>
 		      <td th:text="${participante.nome}"></td>
+		      <td th:text="${participante.emailConfirmadoSimNao}"></td>
 		      <td>
 		      	<div class="row">
 					<div class="col text-right">

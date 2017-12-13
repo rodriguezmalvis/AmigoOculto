@@ -13,10 +13,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.amigo.daos.TokenDao;
+import br.com.amigo.daos.ParticipanteDao;
 import br.com.amigo.models.Participante;
-import br.com.amigo.models.TokenEmail;
-import javassist.expr.NewArray;
 
 @Component
 public class Sorteiador {
@@ -25,7 +23,7 @@ public class Sorteiador {
 	Mailer mailSender;
 	
 	@Autowired
-	TokenDao tokenDao;
+	ParticipanteDao dao;
 	
 	public Map<Participante,Participante> sorteia( List<Participante> participantes ) {
 		
@@ -73,12 +71,10 @@ public class Sorteiador {
 			
 			String token = Calendar.getInstance().getTimeInMillis()+"O_o"+MD5+"o_O"+Calendar.getInstance().getTimeInMillis();
 			
-			TokenEmail tokenEmail = new TokenEmail();
-			tokenEmail.setToken(MD5);
-			tokenEmail.setParticipante(participante);
-			tokenEmail.setData(new Date());
+			participante.setToken(MD5);
+			participante.setDataToken(new Date());
 			
-			tokenDao.save(tokenEmail);
+			dao.save(participante);
 			
 			System.out.println("Enviando email de confirmação pra: "+participante.getEmail());
 			
