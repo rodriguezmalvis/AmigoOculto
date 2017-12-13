@@ -66,12 +66,14 @@
 		    <tr>
 		      <th scope="col">#</th>
 		      <th scope="col">Email</th>
+		      <th scope="col">Nome</th>
 		    </tr>
 		  </thead>
 		  <tbody>
 		    <tr th:each="participante,iterationStatus : ${participantes}">
 		      <th th:text="${iterationStatus.count}" scope="row"></th>
 		      <td th:text="${participante.email}"></td>
+		      <td th:text="${participante.nome}"></td>
 		    </tr>
 		  </tbody>
 		</table>

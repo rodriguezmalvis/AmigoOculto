@@ -50,10 +50,14 @@
 				
 		<form action="#" th:action="@{/participante/cadastra}" th:object="${participante}" method="post">
 			<div class="form-group">
-				<label for="email">Email address</label>
+				<label for="email">Email</label>
 				<input id="email" class="form-control" type="text" th:field="*{email}"/>
 			</div>
-			<button type="submit" class="btn btn-primary">Cadastrar email</button>
+			<div class="form-group">
+				<label for="nome">Nome</label>
+				<input id="nome" class="form-control" type="text" th:field="*{nome}"/>
+			</div>
+			<button type="submit" class="btn btn-primary">Cadastrar participante</button>
 		</form>
 		
 	</div>

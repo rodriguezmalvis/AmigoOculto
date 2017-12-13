@@ -40,6 +40,13 @@ public class Sorteio {
 			
 			System.out.println("Participante "+participante.getEmail()+" tirou -------> "+resultado.get(participante).getEmail());
 			
+			mailSender.sendMailWithJavaMail(
+					"meuamigaosecreto@hotmail.com", 
+					participante.getEmail(), 
+					"Amigo oculto 2017", 
+					"Olá "+participante.getEmail()+", você tirou "+ resultado.get(participante).getEmail() +". Apenas lembrar"
+							+ "que o valor do presente é até R$ 50. Feliz Natal!!!");
+			
 		}
 		
 		return resultado;
@@ -49,7 +56,9 @@ public class Sorteio {
 	public void validaEmails(List<Participante> participantes) {
 		
 		for (Participante participante : participantes) {
+			
 			System.out.println("Enviando email pra: "+participante.getEmail());
+			
 			mailSender.sendMailWithJavaMail(
 					"meuamigaosecreto@hotmail.com", 
 					participante.getEmail(), 
