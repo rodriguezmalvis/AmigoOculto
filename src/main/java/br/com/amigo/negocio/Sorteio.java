@@ -38,13 +38,14 @@ public class Sorteio {
 		
 		for (Participante participante : resultado.keySet()) {
 			
-			System.out.println("Participante "+participante.getEmail()+" tirou -------> "+resultado.get(participante).getEmail());
+			//System.out.println("Participante "+participante.getEmail()+" tirou -------> "+resultado.get(participante).getEmail());
+			System.out.println("Enviando email do sorteio pra: "+participante.getEmail());
 			
 			mailSender.sendMailWithJavaMail(
 					"meuamigaosecreto@hotmail.com", 
 					participante.getEmail(), 
 					"Amigo oculto 2017", 
-					"Olá "+participante.getEmail()+", você tirou "+ resultado.get(participante).getEmail() +". Apenas lembrar"
+					"Olá "+participante.getNome()+", você tirou "+ resultado.get(participante).getNome() +". Apenas lembrar"
 							+ "que o valor do presente é até R$ 50. Feliz Natal!!!");
 			
 		}
@@ -57,13 +58,13 @@ public class Sorteio {
 		
 		for (Participante participante : participantes) {
 			
-			System.out.println("Enviando email pra: "+participante.getEmail());
+			System.out.println("Enviando email de confirmação pra: "+participante.getEmail());
 			
 			mailSender.sendMailWithJavaMail(
 					"meuamigaosecreto@hotmail.com", 
 					participante.getEmail(), 
 					"Amigo oculto 2017", 
-					"Olá "+participante.getEmail()+", esta é uma mensagem automática do sorteio do amigo oculto. Por favor, "
+					"Olá "+participante.getNome()+", esta é uma mensagem automática do sorteio do amigo oculto. Por favor, "
 							+ "confirme o recebimento deste email respondendo este email ou no grupo da Family no Zap! Feliz Natal!!!");
 		}
 		
