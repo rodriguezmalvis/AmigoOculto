@@ -1,5 +1,6 @@
 package br.com.amigo.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,9 +16,10 @@ public class Sorteio {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	private Boolean finalizado;
 	
 	@OneToMany(mappedBy="sorteio")
-	private List<Participante> participantes;
+	private List<Participante> participantes = new ArrayList<>();
 	
 	public Integer getId() {
 		return id;
@@ -41,6 +43,14 @@ public class Sorteio {
 	
 	public void setParticipantes(List<Participante> participantes) {
 		this.participantes = participantes;
+	}
+
+	public Boolean getFinalizado() {
+		return finalizado;
+	}
+
+	public void setFinalizado(Boolean finalizado) {
+		this.finalizado = finalizado;
 	}
 
 }

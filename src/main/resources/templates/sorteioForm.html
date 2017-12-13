@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="template">
+<head th:replace="template :: head">
+<meta charset="UTF-8"/>
+</head>
+<body>
+	
+	<div layout:fragment="corpo">
+		<form action="#" th:action="@{/sorteio/cadastra}" th:object="${sorteio}" method="post">
+			<div class="form-group">
+				<label for="nome">Nome do sorteio</label>
+				<input id="nome" class="form-control" type="text" th:field="*{nome}"/>
+			</div>
+			<button type="submit" class="btn btn-primary">Cadastrar sorteio</button>
+		</form>
+	</div>
+	
+</body>
+</html>

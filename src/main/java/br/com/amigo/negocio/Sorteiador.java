@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import br.com.amigo.models.Participante;
 
 @Component
-public class Sorteio {
+public class Sorteiador {
 	
 	@Autowired
 	Mailer mailSender;
