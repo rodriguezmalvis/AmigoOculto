@@ -48,6 +48,10 @@ public class Sorteio {
 	public void setParticipantes(List<Participante> participantes) {
 		this.participantes = participantes;
 	}
+	
+	public String getFinalizadoSimNao() {
+		return finalizado ? "Sim" : "Não" ;
+	}
 
 	public Boolean getFinalizado() {
 		return finalizado;

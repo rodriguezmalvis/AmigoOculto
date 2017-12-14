@@ -65,6 +65,8 @@ public class Sorteiador {
 
 	public void validaEmails(List<Participante> participantes) throws Exception {
 		
+		participantes.removeIf(p -> p.isEmailConfirmado() == true);
+		
 		for (Participante participante : participantes) {
 			
 			String MD5 = geraMD5(participante);

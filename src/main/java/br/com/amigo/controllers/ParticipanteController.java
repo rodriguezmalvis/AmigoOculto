@@ -3,7 +3,9 @@ package br.com.amigo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +23,7 @@ public class ParticipanteController {
 	private String welcome;
 	
 	@Autowired
-	ParticipanteDao dao;
+	ParticipanteDao participanteDao;
 	
 	@Autowired
 	SorteioDao sorteioDao;
@@ -31,7 +33,7 @@ public class ParticipanteController {
 		
 		ModelAndView view = new ModelAndView("redirect:/home");
 		
-		dao.save(participante);
+		participanteDao.save(participante);
 		
 		redirectAttributes.addFlashAttribute("mensagem", "participante cadastrado com sucesso");
 		
@@ -42,11 +44,11 @@ public class ParticipanteController {
 	@PostMapping("remover")
 	public ModelAndView removerParticipante(String email, RedirectAttributes redirectAttributes) {
 		
-		Participante participante = dao.findOne(email);
+		Participante participante = participanteDao.findOne(email);
 		
 		ModelAndView view = new ModelAndView("redirect:/sorteio/participantes/"+participante.getSorteio().getId());
 		
-		dao.delete(participante);
+		participanteDao.delete(participante);
 		
 		redirectAttributes.addFlashAttribute("mensagem", "participante deletado com sucesso");
 		
@@ -59,8 +61,36 @@ public class ParticipanteController {
 		
 		ModelAndView model = new ModelAndView("home");
 		model.addObject("welcome", welcome);
-		model.addObject("participante", dao.findOne(email));
+		model.addObject("participante", participanteDao.findOne(email));
 		model.addObject("sorteios", sorteioDao.findAll());
+		
+		return model;
+		
+	}
+	
+	@GetMapping("validaEmail/{token}")
+	public ModelAndView validaEmailParticipante( @PathVariable String token) {
+		
+		ModelAndView model = new ModelAndView("emailValidado");
+		
+		String[] arrtoken = token.split("O_o");
+		arrtoken = arrtoken[1].split("o_O");
+		token = arrtoken[0];
+		
+		Participante participante = participanteDao.findByToken(token);
+		
+		if(participante != null) {
+
+			participante.setEmailConfirmado(true);
+			participanteDao.save(participante);
+			model.addObject("welcome", welcome);
+			model.addObject("mensagem", "Email validado com sucesso");
+			
+		}else {
+			
+			
+			
+		}
 		
 		return model;
 		

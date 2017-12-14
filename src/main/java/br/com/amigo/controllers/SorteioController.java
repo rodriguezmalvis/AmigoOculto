@@ -83,11 +83,13 @@ public class SorteioController {
 		Integer confirmados = (int) sorteio.getParticipantes().stream().filter(Participante::isEmailConfirmado).count();
 		
 		if(confirmados == sorteio.getNumeroParticipantes()) {
-			if(sorteio.getNumeroParticipantes() <= 3 ) {
+			if(sorteio.getNumeroParticipantes() <= 2 ) {
 				redirectAttributes.addFlashAttribute("alerta","Numero minimo de participantes não atingido (Min 3)");
 			}else {
 				sorteiador.sorteia(sorteio.getParticipantes());
 				redirectAttributes.addFlashAttribute("mensagem","Sorteio realizado com sucesso");
+				sorteio.setFinalizado(true);
+				sorteioDao.save(sorteio);
 			}
 		}else {
 			redirectAttributes.addFlashAttribute("alerta","Existem participantes que não confirmaram o email");

@@ -64,7 +64,7 @@ public class Participante {
 		return emailConfirmado;
 	}
 	
-	public String isEmailConfirmadoSimNao() {
+	public String getEmailConfirmadoSimNao() {
 		return emailConfirmado ? "Sim" : "Nao" ;
 	}
 

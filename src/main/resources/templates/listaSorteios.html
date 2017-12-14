@@ -14,6 +14,7 @@ layout:decorator="template">
 		      <th scope="col">#</th>
 		      <th scope="col">Email</th>
 		      <th scope="col">Nº Participantes</th>
+		      <th scope="col">Finalizado</th>
 		      <th scope="col"></th>
 		    </tr>
 		  </thead>
@@ -22,6 +23,7 @@ layout:decorator="template">
 		      <th th:text="${iterationStatus.count}" scope="row"></th>
 		      <td th:text="${sorteio.nome}"></td>
 		      <td th:text="${sorteio.numeroParticipantes}"></td>
+		      <td th:text="${sorteio.finalizadoSimNao}"></td>
 		      <td><a th:href="@{/sorteio/participantes/}+${sorteio.id}">participantes</a></td>
 		    </tr>
 		  </tbody>
