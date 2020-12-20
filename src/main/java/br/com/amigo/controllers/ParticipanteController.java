@@ -15,8 +15,6 @@ import br.com.amigo.daos.ParticipanteDao;
 import br.com.amigo.daos.SorteioDao;
 import br.com.amigo.models.Participante;
 
-import java.util.Optional;
-
 @Controller
 @RequestMapping("participante")
 public class ParticipanteController {
@@ -46,7 +44,7 @@ public class ParticipanteController {
 	@PostMapping("remover")
 	public ModelAndView removerParticipante(String email, RedirectAttributes redirectAttributes) {
 		
-		Participante participante = participanteDao.findById(email).get();
+		Participante participante = participanteDao.findOne(email);
 		
 		ModelAndView view = new ModelAndView("redirect:/sorteio/participantes/"+participante.getSorteio().getId());
 		
@@ -63,7 +61,7 @@ public class ParticipanteController {
 		
 		ModelAndView model = new ModelAndView("home");
 		model.addObject("welcome", welcome);
-		model.addObject("participante", participanteDao.findById(email).get());
+		model.addObject("participante", participanteDao.findOne(email));
 		model.addObject("sorteios", sorteioDao.findAll());
 		
 		return model;

@@ -117,7 +117,7 @@ public class SorteioController {
 		
 		ModelAndView view = new ModelAndView("listaParticipantes");
 		
-		Sorteio sorteio = sorteioDao.findById(idSorteio).get();
+		Sorteio sorteio = sorteioDao.findOne(idSorteio);
 		
 		view.addObject("sorteio", sorteio);
 		view.addObject("welcome", welcome);
